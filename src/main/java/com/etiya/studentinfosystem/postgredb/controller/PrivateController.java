@@ -11,6 +11,6 @@ public class PrivateController {
     @GetMapping
     public String privateRequestHandler(Authentication authentication){
         System.out.println(authentication.getPrincipal());
-        return "Response from private endpoint";
+        return "Response from private endpoint deneem";
     }
 }
