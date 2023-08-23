@@ -14,15 +14,6 @@ public class EtiyaStudentInformationSystemApplication {
 		SpringApplication.run(EtiyaStudentInformationSystemApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner init(RoleRepository roleRepository) {
-		return args -> {
-			if (roleRepository.findAll().isEmpty()) {
-				Role newRole = new Role();
-				newRole.setRoleName("DEFAULT_ROLE");
-				roleRepository.save(newRole);
-			}
-		};
-	}
+
 }
 
