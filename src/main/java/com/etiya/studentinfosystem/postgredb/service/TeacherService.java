@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TeacherService {
-    List<Teacher> findAllTeachers();
-    Optional<Teacher> findTeacherById(Long id);
-    Teacher saveTeacher(Teacher teacher);
-    void deleteTeacherById(Long id);
+    Teacher getTeacherById(Long id);
+    List<Teacher> getAllTeachers();
+    Teacher createTeacher(Teacher teacher);
+    Teacher updateTeacher(Long id, Teacher teacherDetails);
+    boolean deleteTeacher(Long id);
 }

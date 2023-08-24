@@ -6,25 +6,37 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.SWAGGER_12)
+                .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.etiya.studentinfosystem.postgredb.controller"))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .apiInfo(apiInfo());
     }
 
-    private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Spring Swagger API Documentation")
-                .description("Spring Swagger API Documentation")
-                .build();
+    private ApiInfo apiInfo() {
+        return new ApiInfo(
+                "Öğrenci Otomasyonu API",
+                "Öğrenci Otomasyonu projesi için API belgelendirmesi.",
+                "v1",
+                "Terms of service URL",
+                new Contact("Burak Kahraman", "-", "bkahraman083@gmail.com"),
+                "License",
+                "License URL",
+                Collections.emptyList());
     }
+
 }

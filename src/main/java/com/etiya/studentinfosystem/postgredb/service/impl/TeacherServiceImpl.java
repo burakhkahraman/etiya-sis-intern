@@ -15,22 +15,41 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherRepository teacherRepository;
 
     @Override
-    public List<Teacher> findAllTeachers() {
+    public Teacher getTeacherById(Long id) {
+        Optional<Teacher> teacher = teacherRepository.findById(id);
+        return teacher.orElse(null);
+    }
+
+    @Override
+    public List<Teacher> getAllTeachers() {
         return teacherRepository.findAll();
     }
 
     @Override
-    public Optional<Teacher> findTeacherById(Long id) {
-        return teacherRepository.findById(id);
-    }
-
-    @Override
-    public Teacher saveTeacher(Teacher teacher) {
+    public Teacher createTeacher(Teacher teacher) {
         return teacherRepository.save(teacher);
     }
 
     @Override
-    public void deleteTeacherById(Long id) {
-        teacherRepository.deleteById(id);
+    public Teacher updateTeacher(Long id, Teacher teacherDetails) {
+        Optional<Teacher> existingTeacherOpt = teacherRepository.findById(id);
+        if (existingTeacherOpt.isPresent()) {
+            Teacher existingTeacher = existingTeacherOpt.get();
+            existingTeacher.setFirstName(teacherDetails.getFirstName());
+            existingTeacher.setLastName(teacherDetails.getLastName());
+            existingTeacher.setEmail(teacherDetails.getEmail());
+            // Diğer alanları da burada güncelleyebilirsiniz.
+            return teacherRepository.save(existingTeacher);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteTeacher(Long id) {
+        if (teacherRepository.existsById(id)) {
+            teacherRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
