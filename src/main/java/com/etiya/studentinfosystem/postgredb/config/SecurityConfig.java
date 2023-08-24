@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
@@ -30,11 +31,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        OrRequestMatcher combinedMatchers = new OrRequestMatcher(
+                new AntPathRequestMatcher("/auth/**"),
+                new AntPathRequestMatcher("/swagger-ui/**"),
+                new AntPathRequestMatcher("/swagger-ui.html"),
+                new AntPathRequestMatcher("/v3/api-docs/**")
+        );
+
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
+                                .requestMatchers(combinedMatchers).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exp -> exp.authenticationEntryPoint(jwtAuthenticationEntryPoint))
