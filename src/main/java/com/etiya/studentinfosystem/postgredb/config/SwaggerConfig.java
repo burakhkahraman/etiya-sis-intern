@@ -1,42 +1,36 @@
 package com.etiya.studentinfosystem.postgredb.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.Collections;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
+
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_12)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(apiInfo());
+    //OpenAPI döndüren bir bean oluşturuyoruz. Bu bean ile Swagger UI üzerinde gösterilecek bilgileri belirliyoruz.
+    //Burada görüldüğü gibi title, version, description, termsOfService, license, contact gibi bilgileri belirtebiliyoruz.
+    //Bu bilgiler Swagger UI üzerinde en üstte gösterilecek bilgilerdir.
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("")
+                        .version("1.0")
+                        .description("Product API açıklama")
+                        .termsOfService("http://swagger.io/terms/")
+                        .license(new License()
+                                .name("Apache 2.0")
+                                .url("http://springdoc.org")
+                        )
+                        .contact(new Contact()
+                                .email("asd@gmail.com")
+                                .name("Geliştirici")
+                                .url("https://asd.com")
+                        )
+                );
     }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfo(
-                "Öğrenci Otomasyonu API",
-                "Öğrenci Otomasyonu projesi için API belgelendirmesi.",
-                "v1",
-                "Terms of service URL",
-                new Contact("Burak Kahraman", "-", "bkahraman083@gmail.com"),
-                "License",
-                "License URL",
-                Collections.emptyList());
-    }
-
 }
