@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -16,6 +18,9 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "Benzersiz tanımlayıcı")
     private Long id;
+
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
+    private List<TakenCourse> takenCourses;
 
     @Schema(description = "Harf notu")
     private String gradeLetter;
