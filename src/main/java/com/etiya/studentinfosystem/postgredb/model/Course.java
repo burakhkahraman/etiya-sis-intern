@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -20,6 +22,10 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<TakenCourse> takenCourses;
+
     private String courseName;
     private String description;
     private int creditValue;
@@ -31,4 +37,8 @@ public class Course {
     private Course prerequisiteCourse;
 
     private int isActive;
+
+    @Schema(description = "Dersin kısa kodu")
+    @Column(unique = true)  // Eğer shortCode'un benzersiz olmasını istiyorsanız bu anotasyonu ekleyin.
+    private String shortCode;
 }

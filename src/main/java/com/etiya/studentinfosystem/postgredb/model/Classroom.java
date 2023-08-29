@@ -33,4 +33,8 @@ public class Classroom {
 
     @Schema(description = "Sınıfın aktiflik durumu")
     private int isActive;
+
+    @Schema(description = "Sınıfın kısa kodu")
+    @Column(unique = true)  // Eğer shortCode'un benzersiz olmasını istiyorsanız bu anotasyonu ekleyin.
+    private String shortCode;
 }

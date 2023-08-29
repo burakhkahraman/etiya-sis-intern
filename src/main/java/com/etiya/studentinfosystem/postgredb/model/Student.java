@@ -1,10 +1,13 @@
 package com.etiya.studentinfosystem.postgredb.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -16,6 +19,10 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "Öğrencinin benzersiz tanımlayıcısı")
     private Long id;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<TakenCourse> takenCourses;
 
     @Schema(description = "Öğrencinin adı")
     private String firstName;

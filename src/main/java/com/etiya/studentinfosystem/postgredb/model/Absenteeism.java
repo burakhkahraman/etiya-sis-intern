@@ -18,7 +18,7 @@ public class Absenteeism {
     private Long id;
 
     @Schema(description = "Hangi derse ait olduğuna dair bilgi")
-    private Long courseId;
+    private Long takencourseId;
 
     @Schema(description = "Devamsızlık tarihi")
     private String date;
