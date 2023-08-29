@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,10 +22,12 @@ public class Course {
 
     private String courseName;
     private String description;
-    private Integer creditValue;
+    private int creditValue;
 
     @ManyToOne
     @JoinColumn(name = "prerequisite_course_id")
+    @JsonBackReference
+    @Schema(description = "Dersin ön koşulunu temsil eder")
     private Course prerequisiteCourse;
 
     private int isActive;
