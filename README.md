@@ -1,2 +1,2 @@
 # etiya-sis-intern
-Etiya- Student Information System
+Etiya Internship- Student Information System
