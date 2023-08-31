@@ -1,12 +1,16 @@
 package com.etiya.studentinfosystem.postgredb.model;
 
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -41,4 +45,8 @@ public class TakenCourse {
 
     @Schema(description = "Dersin kısa kodu")
     private String shortCode;
+
+    @OneToMany(mappedBy = "takenCourse", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<ResultOfExam> results = new ArrayList<>();
 }
