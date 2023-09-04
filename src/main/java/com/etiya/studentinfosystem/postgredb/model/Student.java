@@ -20,9 +20,7 @@ public class Student {
     @Schema(description = "Öğrencinin benzersiz tanımlayıcısı")
     private Long id;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<TakenCourse> takenCourses;
+
 
     @Schema(description = "Öğrencinin adı")
     private String firstName;
@@ -44,4 +42,8 @@ public class Student {
 
     @Schema(description = "Öğrencinin aktiflik durumu")
     private int isActive;
+
+   /* @JsonBackReference
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<TakenCourse> takenCourses;*/
 }

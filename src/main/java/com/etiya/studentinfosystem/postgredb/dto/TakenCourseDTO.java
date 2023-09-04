@@ -10,5 +10,5 @@ public class TakenCourseDTO {
     private String term;
     private Long gradeId;
     private int isActive;
-    private String shortCode;
+
 }

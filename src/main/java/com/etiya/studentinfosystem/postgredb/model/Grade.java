@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class Grade {
     @Schema(description = "Benzersiz tanımlayıcı")
     private Long id;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
     private List<TakenCourse> takenCourses;
 
@@ -33,4 +35,7 @@ public class Grade {
 
     @Schema(description = "Aktiflik durumu")
     private int isActive;
+
+    @Schema(description = "Notun kısa kodu")
+    private String shortCode;
 }
