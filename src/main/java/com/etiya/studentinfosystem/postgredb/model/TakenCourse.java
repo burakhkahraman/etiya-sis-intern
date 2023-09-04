@@ -2,7 +2,9 @@ package com.etiya.studentinfosystem.postgredb.model;
 
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,35 +20,36 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "taken_courses")
 @Schema(description = "Alınan derslerin detay bilgileri için model")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class TakenCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "Alınan dersin benzersiz tanımlayıcısı")
     private Long id;
 
-    @ManyToOne
-    @JsonManagedReference
-    @JoinColumn(name = "student_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
     @Schema(description = "Dönem bilgisi")
     private String term;
 
-    @ManyToOne
-    @JoinColumn(name = "grade_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "grade_id", nullable = true)
     private Grade grade;
 
+    @Column(name = "is_active", nullable = false)
     @Schema(description = "Kaydın aktiflik durumu")
     private int isActive;
 
-    @Schema(description = "Dersin kısa kodu")
-    private String shortCode;
 
-    @OneToMany(mappedBy = "takenCourse", cascade = CascadeType.ALL, orphanRemoval = true)
+
+   /* @OneToMany(mappedBy = "takenCourse", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
-    private List<ResultOfExam> results = new ArrayList<>();
+    private List<ResultOfExam> results = new ArrayList<>();*/
 }
