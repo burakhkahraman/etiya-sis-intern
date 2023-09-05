@@ -28,18 +28,18 @@ public class TakenCourse {
     @Schema(description = "Alınan dersin benzersiz tanımlayıcısı")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
     @Schema(description = "Dönem bilgisi")
     private String term;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "grade_id", nullable = true)
     private Grade grade;
 
