@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,8 +21,9 @@ public class Grade {
     @Schema(description = "Benzersiz tanımlayıcı")
     private Long id;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
+
+    @OneToMany/*(mappedBy = "grade", cascade = CascadeType.ALL)*/
+    @JsonIgnore
     private List<TakenCourse> takenCourses;
 
     @Schema(description = "Harf notu")
