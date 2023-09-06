@@ -2,6 +2,7 @@ package com.etiya.studentinfosystem.postgredb.controller;
 
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.etiya.studentinfosystem.postgredb.model.TakenCourse;
+import com.etiya.studentinfosystem.postgredb.request.TakenCourseRequest;
 import com.etiya.studentinfosystem.postgredb.service.TakenCourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,15 @@ public class TakenCourseController {
 
     @PostMapping
     @Operation(summary = "Yeni bir alınan ders kaydı oluşturur")
-    public TakenCourseDTO createTakenCourse(@RequestBody TakenCourseDTO takenCourseDTO) {
-        return takenCourseService.createTakenCourse(takenCourseDTO);
+    public TakenCourse createTakenCourse(@RequestBody TakenCourseRequest takenCourseRequest) {
+        return takenCourseService.createTakenCourse(takenCourseRequest);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "ID ile alınan ders kaydını günceller")
-    public TakenCourseDTO updateTakenCourse(@PathVariable Long id, @RequestBody TakenCourseDTO takenCourseDTO) {
-        return takenCourseService.updateTakenCourse(id, takenCourseDTO);
+    public TakenCourse updateTakenCourse(@RequestBody TakenCourseRequest takenCourseRequest) {
+        return takenCourseService.updateTakenCourse(takenCourseRequest);
+
     }
 
     @DeleteMapping("/{id}")

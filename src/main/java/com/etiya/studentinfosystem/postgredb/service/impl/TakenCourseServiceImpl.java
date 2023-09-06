@@ -2,14 +2,16 @@ package com.etiya.studentinfosystem.postgredb.service.impl;
 
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.etiya.studentinfosystem.postgredb.model.Course;
-import com.etiya.studentinfosystem.postgredb.model.Grade;
 import com.etiya.studentinfosystem.postgredb.model.Student;
 import com.etiya.studentinfosystem.postgredb.model.TakenCourse;
 import com.etiya.studentinfosystem.postgredb.repository.CourseRepository;
-import com.etiya.studentinfosystem.postgredb.repository.GradeRepository;
+
 import com.etiya.studentinfosystem.postgredb.repository.StudentRepository;
 import com.etiya.studentinfosystem.postgredb.repository.TakenCourseRepository;
+import com.etiya.studentinfosystem.postgredb.request.TakenCourseRequest;
 import com.etiya.studentinfosystem.postgredb.service.TakenCourseService;
+
+import com.github.dozermapper.core.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TakenCourseServiceImpl implements TakenCourseService {
+
     @Autowired
     private TakenCourseRepository takenCourseRepository;
 
@@ -29,38 +32,8 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     private StudentRepository studentRepository;
 
     @Autowired
-    private GradeRepository gradeRepository;
 
-    private TakenCourse convertToEntity(TakenCourseDTO dto) {
-        TakenCourse takenCourse = new TakenCourse();
-
-        Course course = courseRepository.findById(dto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found for ID: " + dto.getCourseId()));
-        Student student = studentRepository.findById(dto.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found for ID: " + dto.getStudentId()));
-        Grade grade = gradeRepository.findById(dto.getGradeId())
-                .orElseThrow(() -> new RuntimeException("Grade not found for ID: " + dto.getGradeId()));
-
-        takenCourse.setCourse(course);
-        takenCourse.setStudent(student);
-        takenCourse.setGrade(grade);
-        takenCourse.setTerm(dto.getTerm());
-        takenCourse.setIsActive(dto.getIsActive());
-
-        return takenCourse;
-    }
-
-    private TakenCourseDTO convertToDTO(TakenCourse takenCourse) {
-        TakenCourseDTO dto = new TakenCourseDTO();
-        dto.setId(takenCourse.getId());
-        dto.setCourseId(takenCourse.getCourse().getId());
-        dto.setStudentId(takenCourse.getStudent().getId());
-        dto.setGradeId(takenCourse.getGrade().getId());
-        dto.setTerm(takenCourse.getTerm());
-        dto.setIsActive(takenCourse.getIsActive());
-
-        return dto;
-    }
+    private Mapper dozerMapper;
 
     @Override
     public List<TakenCourseDTO> getAllTakenCourses() {
@@ -73,21 +46,34 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     }
 
     @Override
-    public TakenCourseDTO createTakenCourse(TakenCourseDTO dto) {
-        TakenCourse takenCourse = convertToEntity(dto);
-        TakenCourse saved = takenCourseRepository.save(takenCourse);
-        return convertToDTO(saved);
+    public TakenCourse createTakenCourse(TakenCourseRequest request) {
+        TakenCourse takenCourse = dozerMapper.map(request, TakenCourse.class);
+
+        Course course = courseRepository.findByShortCode(request.getCourseShrtCode())
+                .orElseThrow(() -> new RuntimeException("Course not found for shortCode: " + request.getCourseShrtCode()));
+        takenCourse.setCourse(course);
+
+        Student student = studentRepository.findById(request.getStudentId())
+                .orElseThrow(() -> new RuntimeException("Student not found for ID: " + request.getStudentId()));
+        takenCourse.setStudent(student);
+
+        return takenCourseRepository.save(takenCourse);
     }
 
     @Override
-    public TakenCourseDTO updateTakenCourse(Long id, TakenCourseDTO dto) {
-        if (!takenCourseRepository.existsById(id)) {
-            throw new RuntimeException("Taken course not found for ID: " + id);
+    public TakenCourse updateTakenCourse(TakenCourseRequest request) {
+        if (!takenCourseRepository.existsById(request.getId())) {
+            throw new RuntimeException("Taken course not found for ID: " + request.getId());
         }
-        TakenCourse updatedTakenCourse = convertToEntity(dto);
-        updatedTakenCourse.setId(id);
-        TakenCourse saved = takenCourseRepository.save(updatedTakenCourse);
-        return convertToDTO(saved);
+
+        TakenCourse existingTakenCourse = takenCourseRepository.findById(request.getId()).orElseThrow(
+                () -> new RuntimeException("Taken course not found for ID: " + request.getId())
+        );
+
+        TakenCourse updatedTakenCourse = dozerMapper.map(request, TakenCourse.class);
+        updatedTakenCourse.setId(existingTakenCourse.getId());
+
+        return takenCourseRepository.save(updatedTakenCourse);
     }
 
     @Override
@@ -97,4 +83,10 @@ public class TakenCourseServiceImpl implements TakenCourseService {
         }
         takenCourseRepository.deleteById(id);
     }
+
+    private TakenCourseDTO convertToDTO(TakenCourse takenCourse) {
+        return dozerMapper.map(takenCourse, TakenCourseDTO.class);
+    }
 }
+
+
