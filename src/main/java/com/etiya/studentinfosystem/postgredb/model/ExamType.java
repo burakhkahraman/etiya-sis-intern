@@ -25,7 +25,7 @@ public class ExamType {
 
     @Column(name = "weight")
     @Schema(description = "Sınavın ortalamaya olan etkisi")
-    private Double weight;
+    private Long weight;
 
     @Column(name = "parent_exam_type_id")
     @Schema(description = "Eğer bütünleme sınavına kalındıysa, diğer koşulları da göz önüne alarak final notunun ortalamaya dahil edilmemesini sağlayacak olan parentExamTypeID")

@@ -2,6 +2,7 @@ package com.etiya.studentinfosystem.postgredb.service;
 
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.etiya.studentinfosystem.postgredb.model.TakenCourse;
+import com.etiya.studentinfosystem.postgredb.request.TakenCourseRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +12,9 @@ public interface TakenCourseService {
 
     Optional<TakenCourseDTO> getTakenCourseById(Long id);
 
-    TakenCourseDTO createTakenCourse(TakenCourseDTO takenCourseDTO);
+    TakenCourse createTakenCourse(TakenCourseRequest takenCourseRequest);
 
-    TakenCourseDTO updateTakenCourse(Long id, TakenCourseDTO takenCourseDTO);
+    TakenCourse updateTakenCourse(TakenCourseRequest takenCourseRequest);
 
     void deleteTakenCourse(Long id);
 }
