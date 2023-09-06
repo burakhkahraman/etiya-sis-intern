@@ -62,7 +62,7 @@ public class TakenCourseServiceImpl implements TakenCourseService {
 
     @Override
     public TakenCourse updateTakenCourse(TakenCourseRequest request) {
-        if (!takenCourseRepository.existsById(request.getId())) {
+        if (takenCourseRepository.findById(request.getId()).isEmpty()) {
             throw new RuntimeException("Taken course not found for ID: " + request.getId());
         }
 

@@ -6,6 +6,7 @@ import com.etiya.studentinfosystem.postgredb.request.TakenCourseRequest;
 import com.etiya.studentinfosystem.postgredb.service.TakenCourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,9 +37,13 @@ public class TakenCourseController {
 
     @PutMapping("/{id}")
     @Operation(summary = "ID ile alınan ders kaydını günceller")
-    public TakenCourse updateTakenCourse(@RequestBody TakenCourseRequest takenCourseRequest) {
-        return takenCourseService.updateTakenCourse(takenCourseRequest);
-
+    public ResponseEntity<String> updateTakenCourse(@PathVariable Long id, @RequestBody TakenCourseRequest takenCourseRequest) {
+        TakenCourse result = takenCourseService.updateTakenCourse(takenCourseRequest);
+        if (result != null) {
+            return ResponseEntity.ok("Güncelleme işlemi başarılı!");
+        } else {
+            return ResponseEntity.badRequest().body("Güncelleme işlemi başarısız!");
+        }
     }
 
     @DeleteMapping("/{id}")
