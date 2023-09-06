@@ -1,6 +1,5 @@
 package com.etiya.studentinfosystem.postgredb.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -31,7 +30,7 @@ public class ResultOfExam {
     private TakenCourse takenCourse;
 
     @Schema(description = "Sınavdan alınan puan")
-    private Double score;
+    private Long score;
 
     @Schema(description = "Sınavın aktif olup olmadığı")
     private int isActive;
