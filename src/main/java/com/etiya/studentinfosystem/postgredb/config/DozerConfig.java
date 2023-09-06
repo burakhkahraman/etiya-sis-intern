@@ -12,6 +12,6 @@ public class DozerConfig {
     @Bean
     public Mapper dozerBeanMapper() {
         return DozerBeanMapperBuilder.create().build();
-              
+
     }
 }
