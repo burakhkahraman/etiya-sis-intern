@@ -35,9 +35,9 @@ public class TakenCourseController {
         return takenCourseService.createTakenCourse(takenCourseRequest);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update")
     @Operation(summary = "ID ile alınan ders kaydını günceller")
-    public ResponseEntity<String> updateTakenCourse(@PathVariable Long id, @RequestBody TakenCourseRequest takenCourseRequest) {
+    public ResponseEntity<String> updateTakenCourse(@RequestBody TakenCourseRequest takenCourseRequest) {
         TakenCourse result = takenCourseService.updateTakenCourse(takenCourseRequest);
         if (result != null) {
             return ResponseEntity.ok("Güncelleme işlemi başarılı!");
