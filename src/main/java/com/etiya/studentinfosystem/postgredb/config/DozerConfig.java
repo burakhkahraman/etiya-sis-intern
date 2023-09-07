@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class DozerConfig {
     @Bean
     public Mapper dozerBeanMapper() {
-        return DozerBeanMapperBuilder.create().build();
+        return DozerBeanMapperBuilder.buildDefault();
 
     }
 }

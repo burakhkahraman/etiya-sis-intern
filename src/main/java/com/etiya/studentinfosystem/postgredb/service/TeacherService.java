@@ -1,14 +1,21 @@
 package com.etiya.studentinfosystem.postgredb.service;
 
+import com.etiya.studentinfosystem.postgredb.dto.TeacherDTO;
 import com.etiya.studentinfosystem.postgredb.model.Teacher;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TeacherService {
-    Teacher getTeacherById(Long id);
-    List<Teacher> getAllTeachers();
-    Teacher createTeacher(Teacher teacher);
-    Teacher updateTeacher(Long id, Teacher teacherDetails);
+    TeacherDTO getTeacherById(Long id);
+
+    List<TeacherDTO> getAllTeachers();
+
+    TeacherDTO createTeacher(TeacherDTO teacherDTO);
+
+    TeacherDTO updateTeacher(Long id, TeacherDTO teacherDTO);
+
     boolean deleteTeacher(Long id);
+
+
 }

@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.controller;
 
+import com.etiya.studentinfosystem.postgredb.dto.TeacherDTO;
 import com.etiya.studentinfosystem.postgredb.model.Teacher;
 import com.etiya.studentinfosystem.postgredb.service.TeacherService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/teachers")
@@ -27,33 +29,32 @@ public class TeacherController {
             @ApiResponse(responseCode = "404", description = "Öğretmen bulunamadı")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Teacher> getTeacher(
-            @Parameter(description = "ID ile öğretmen bilgilerini alır") @PathVariable long id) {
-        Teacher teacher = teacherService.getTeacherById(id);
-        if (teacher != null) {
-            return ResponseEntity.ok(teacher);
+    public ResponseEntity<TeacherDTO> getTeacher(@PathVariable long id) {
+        TeacherDTO teacherDTO = teacherService.getTeacherById(id);
+        if (teacherDTO != null) {
+            return ResponseEntity.ok(teacherDTO);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Operation(summary = "Tüm öğretmenleri listeler")
     @GetMapping("/")
-    public ResponseEntity<List<Teacher>> getAllTeachers() {
-        List<Teacher> teachers = teacherService.getAllTeachers();
+    public ResponseEntity<List<TeacherDTO>> getAllTeachers() {
+        List<TeacherDTO> teachers = teacherService.getAllTeachers();
         return ResponseEntity.ok(teachers);
     }
 
     @Operation(summary = "Yeni bir öğretmen ekler")
     @PostMapping("/")
-    public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) {
-        Teacher newTeacher = teacherService.createTeacher(teacher);
+    public ResponseEntity<TeacherDTO> createTeacher(@RequestBody TeacherDTO teacherDTO) {
+        TeacherDTO newTeacher = teacherService.createTeacher(teacherDTO);
         return ResponseEntity.ok(newTeacher);
     }
 
     @Operation(summary = "Bir öğretmenin bilgilerini günceller")
     @PutMapping("/{id}")
-    public ResponseEntity<Teacher> updateTeacher(@PathVariable long id, @RequestBody Teacher teacherDetails) {
-        Teacher updatedTeacher = teacherService.updateTeacher(id, teacherDetails);
+    public ResponseEntity<TeacherDTO> updateTeacher(@PathVariable long id, @RequestBody TeacherDTO teacherDTO) {
+        TeacherDTO updatedTeacher = teacherService.updateTeacher(id, teacherDTO);
         if (updatedTeacher != null) {
             return ResponseEntity.ok(updatedTeacher);
         }
