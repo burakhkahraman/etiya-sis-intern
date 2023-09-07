@@ -1,22 +1,36 @@
 package com.etiya.studentinfosystem.postgredb.service.impl;
 
+import com.etiya.studentinfosystem.postgredb.dto.ClassroomDTO;
 import com.etiya.studentinfosystem.postgredb.model.Classroom;
 import com.etiya.studentinfosystem.postgredb.repository.ClassroomRepository;
 import com.etiya.studentinfosystem.postgredb.service.ClassroomService;
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClassroomServiceImpl implements ClassroomService {
     @Autowired
     private ClassroomRepository classroomRepository;
 
+    /*@Autowired
+    private Mapper dozerMapper;*/
+    private final Mapper dozerMapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("DozerBeanConfig.xml") // XML dosyasının adını belirtiyoruz
+            .build();
+
+
     @Override
-    public List<Classroom> getAllClassrooms() {
-        return classroomRepository.findAll();
+    public List<ClassroomDTO> getAllClassrooms() {
+        return classroomRepository.findAll()
+                .stream()
+                .map(classroom -> dozerMapper.map(classroom, ClassroomDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

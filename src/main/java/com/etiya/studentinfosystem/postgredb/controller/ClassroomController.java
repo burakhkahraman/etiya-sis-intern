@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.controller;
 
+import com.etiya.studentinfosystem.postgredb.dto.ClassroomDTO;
 import com.etiya.studentinfosystem.postgredb.model.Classroom;
 import com.etiya.studentinfosystem.postgredb.service.ClassroomService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,7 +20,7 @@ public class ClassroomController {
     private ClassroomService classroomService;
 
     @GetMapping
-    public ResponseEntity<List<Classroom>> getAllClassrooms() {
+    public ResponseEntity<List<ClassroomDTO>> getAllClassrooms() {
         return ResponseEntity.ok(classroomService.getAllClassrooms());
     }
 
