@@ -33,7 +33,7 @@ Step-by-step project setup:
 
 1. Clone the repository.
 ```bash
-git clone [repo-link]
+git clone [(https://github.com/burakhkahraman/etiya-sis-intern.git)]
 ```
 2. Download dependencies and build the project using Maven.
 ```bash
