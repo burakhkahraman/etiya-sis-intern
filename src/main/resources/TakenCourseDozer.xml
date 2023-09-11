@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <!-- TakenCourse to TakenCourseDTO Mapping -->
+    <mapping>
+        <class-a>com.etiya.studentinfosystem.postgredb.model.TakenCourse</class-a>
+        <class-b>com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO</class-b>
+
+        <field>
+            <a>student.id</a>
+            <b>studentId</b>
+        </field>
+        <field>
+            <a>course.courseName</a> <!-- Assuming that the Course entity has a courseName field -->
+            <b>courseName</b>
+        </field>
+        <field>
+            <a>term</a>
+            <b>term</b>
+        </field>
+        <field>
+            <a>grade.id</a>
+            <b>gradeId</b>
+        </field>
+        <field>
+            <a>isActive</a>
+            <b>isActive</b>
+        </field>
+    </mapping>
+
+    <!-- TakenCourse to TakenCourseRequest Mapping -->
+    <mapping>
+        <class-a>com.etiya.studentinfosystem.postgredb.model.TakenCourse</class-a>
+        <class-b>com.etiya.studentinfosystem.postgredb.request.TakenCourseRequest</class-b>
+
+        <field>
+            <a>student.id</a>
+            <b>studentId</b>
+        </field>
+        <field>
+            <a>course.courseName</a> <!-- Assuming that the Course entity has a courseShrtCode field -->
+            <b>courseShrtCode</b>
+        </field>
+        <field>
+            <a>term</a>
+            <b>term</b>
+        </field>
+        <field>
+            <a>grade.id</a>
+            <b>gradeId</b>
+        </field>
+        <field>
+            <a>isActive</a>
+            <b>isActive</b>
+        </field>
+    </mapping>
+</mappings>
