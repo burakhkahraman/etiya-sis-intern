@@ -1,15 +1,11 @@
 package com.etiya.studentinfosystem.postgredb.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Data
@@ -30,7 +26,7 @@ public class Course {
     @Column(name = "course_name", nullable = false)
     private String courseName;
 
-    @Column(nullable = true) // Eğer bazı derslerin açıklaması olmayabilirse nullable'ı true olarak bırakabilirsiniz.
+    @Column(nullable = true)
     private String description;
 
     @Column(name = "credit_value", nullable = false)
@@ -40,11 +36,15 @@ public class Course {
     @JoinColumn(name = "prerequisite_course_id")
     private Course prerequisiteCourse;
 
-
     @Column(name = "is_active", nullable = false)
     private int isActive;
 
     @Column(name = "short_code", unique = true, nullable = false)
     @Schema(description = "Dersin kısa kodu")
     private String shortCode;
+
+    @Column(name = "is_mandatory", nullable = false)
+    @Schema(description = "Dersin zorunlu olup olmadığı bilgisi")
+    private Boolean isMandatory;  // Zorunlu mu seçmeli mi olduğunu belirten alan
+
 }

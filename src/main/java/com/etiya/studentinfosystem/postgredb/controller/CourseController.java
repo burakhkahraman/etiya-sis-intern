@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.controller;
 
+import com.etiya.studentinfosystem.postgredb.dto.GraduationStatusDTO;
 import com.etiya.studentinfosystem.postgredb.model.Course;
 import com.etiya.studentinfosystem.postgredb.service.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,5 +52,10 @@ public class CourseController {
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/check-graduation-status/{studentId}")
+    public ResponseEntity<GraduationStatusDTO> checkGraduationStatus(@PathVariable Long studentId) {
+        GraduationStatusDTO status = courseService.checkGraduationStatus(studentId);
+        return ResponseEntity.ok(status);
     }
 }

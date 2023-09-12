@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.service;
 
+import com.etiya.studentinfosystem.postgredb.dto.GraduationStatusDTO;
 import com.etiya.studentinfosystem.postgredb.model.Course;
 
 import java.util.List;
@@ -11,4 +12,7 @@ public interface CourseService {
     Course createCourse(Course course);
     Course updateCourse(Long id, Course course);
     void deleteCourse(Long id);
+
+    GraduationStatusDTO checkGraduationStatus(Long studentId);
+
 }
