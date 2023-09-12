@@ -17,6 +17,17 @@ public class TakenCourseController {
     @Autowired
     private TakenCourseService takenCourseService;
 
+    @GetMapping("/can-take/{studentId}/{courseId}")
+    public ResponseEntity<String> canStudentTakeCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
+        boolean canTake = takenCourseService.canStudentTakeCourse(studentId, courseId);
+
+        if (canTake) {
+            return ResponseEntity.ok("Öğrenci bu dersi alabilir.");
+        } else {
+            return ResponseEntity.ok("Öğrenci bu dersi alamaz.");
+        }
+    }
+
     @GetMapping
     @Operation(summary = "Tüm alınan dersleri listeler")
     public List<TakenCourseDTO> getAllTakenCourses() {

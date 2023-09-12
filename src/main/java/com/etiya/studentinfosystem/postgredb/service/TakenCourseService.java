@@ -17,4 +17,7 @@ public interface TakenCourseService {
     TakenCourse updateTakenCourse(TakenCourseRequest takenCourseRequest);
 
     void deleteTakenCourse(Long id);
+
+    boolean canStudentTakeCourse(Long studentId, Long courseId);
+
 }
