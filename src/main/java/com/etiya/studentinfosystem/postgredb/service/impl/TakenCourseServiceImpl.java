@@ -2,6 +2,7 @@ package com.etiya.studentinfosystem.postgredb.service.impl;
 
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.etiya.studentinfosystem.postgredb.model.Course;
+import com.etiya.studentinfosystem.postgredb.model.Grade;
 import com.etiya.studentinfosystem.postgredb.model.Student;
 import com.etiya.studentinfosystem.postgredb.model.TakenCourse;
 import com.etiya.studentinfosystem.postgredb.repository.CourseRepository;
@@ -31,29 +32,27 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     @Autowired
     private StudentRepository studentRepository;
 
-   /* @Autowired
-    private Mapper dozerMapper;
-*/
     private final Mapper dozerMapper = DozerBeanMapperBuilder.create()
-            .withMappingFiles("TakenCourseDozer.xml") // XML dosyasının adını belirtiyoruz
+            .withMappingFiles("TakenCourseDozer.xml")
             .build();
 
     @Override
     public List<TakenCourseDTO> getAllTakenCourses() {
-        return takenCourseRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return takenCourseRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Optional<TakenCourseDTO> getTakenCourseById(Long id) {
-        return takenCourseRepository.findById(id).map(this::convertToDTO);
+        return takenCourseRepository.findById(id)
+                .map(this::convertToDTO);
     }
 
     @Override
     public TakenCourse createTakenCourse(TakenCourseRequest request) {
         TakenCourse takenCourse = dozerMapper.map(request, TakenCourse.class);
-
         resolveDependenciesForTakenCourse(takenCourse, request);
-
         return takenCourseRepository.save(takenCourse);
     }
 
@@ -61,7 +60,7 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     @Transactional
     public TakenCourse updateTakenCourse(TakenCourseRequest request) {
         TakenCourse existingTakenCourse = takenCourseRepository.findById(request.getId())
-                .orElseThrow(() -> new RuntimeException("Taken course not found for ID: " + request.getId()));
+                .orElseThrow(() -> new IllegalArgumentException("Taken course not found for ID: " + request.getId()));
 
         dozerMapper.map(request, existingTakenCourse);
         resolveDependenciesForTakenCourse(existingTakenCourse, request);
@@ -71,20 +70,51 @@ public class TakenCourseServiceImpl implements TakenCourseService {
 
     private void resolveDependenciesForTakenCourse(TakenCourse takenCourse, TakenCourseRequest request) {
         Course course = courseRepository.findByShortCode(request.getCourseShrtCode())
-                .orElseThrow(() -> new RuntimeException("Course not found for shortCode: " + request.getCourseShrtCode()));
+                .orElseThrow(() -> new IllegalArgumentException("Course not found for shortCode: " + request.getCourseShrtCode()));
         takenCourse.setCourse(course);
 
         Student student = studentRepository.findById(request.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found for ID: " + request.getStudentId()));
+                .orElseThrow(() -> new IllegalArgumentException("Student not found for ID: " + request.getStudentId()));
         takenCourse.setStudent(student);
     }
 
     @Override
     public void deleteTakenCourse(Long id) {
-        if (!takenCourseRepository.existsById(id)) {
-            throw new RuntimeException("Taken course not found for ID: " + id);
-        }
+        takenCourseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Taken course not found for ID: " + id));
         takenCourseRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean canStudentTakeCourse(Long studentId, Long courseId) {
+        // Öğrenci kontrolü
+        if (!studentRepository.existsById(studentId)) {
+            throw new RuntimeException("Öğrenci ID'si " + studentId + " olan öğrenci bulunamadı.");
+        }
+
+        // Ders kontrolü
+        if (!courseRepository.existsById(courseId)) {
+            throw new RuntimeException("Course ID'si " + courseId + " olan ders bulunamadı.");
+        }
+
+        Optional<TakenCourse> takenCourseOpt = takenCourseRepository.findByStudentIdAndCourseId(studentId, courseId);
+        if (takenCourseOpt.isPresent()) {
+            Grade grade = takenCourseOpt.get().getGrade();
+            if (grade == null) {
+                return false;  // Notu olmayan bir dersi tekrar alamaz
+            }
+
+            String gradeLetter = grade.getGradeLetter();
+            switch (gradeLetter) {
+                case "AA":
+                case "BA":
+                case "BB":
+                case "CB":
+                case "CC":
+                    return false;  // Bu notlara sahip dersleri tekrar alamaz
+            }
+        }
+        return true;  // Diğer tüm durumlarda dersi alabilir
     }
 
     private TakenCourseDTO convertToDTO(TakenCourse takenCourse) {
