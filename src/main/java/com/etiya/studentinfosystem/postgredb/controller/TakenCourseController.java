@@ -19,13 +19,7 @@ public class TakenCourseController {
 
     @GetMapping("/can-take/{studentId}/{courseId}")
     public ResponseEntity<String> canStudentTakeCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
-        boolean canTake = takenCourseService.canStudentTakeCourse(studentId, courseId);
-
-        if (canTake) {
-            return ResponseEntity.ok("Öğrenci bu dersi alabilir.");
-        } else {
-            return ResponseEntity.ok("Öğrenci bu dersi alamaz.");
-        }
+        return takenCourseService.canStudentTakeCourse(studentId, courseId);
     }
 
     @GetMapping

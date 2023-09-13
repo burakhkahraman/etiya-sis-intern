@@ -1,6 +1,7 @@
 package com.etiya.studentinfosystem.postgredb.controller;
 
 import com.etiya.studentinfosystem.postgredb.model.ExamType;
+import com.etiya.studentinfosystem.postgredb.repository.ExamTypeRepository;
 import com.etiya.studentinfosystem.postgredb.service.ExamTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import java.util.List;
 public class ExamTypeController {
     @Autowired
     private ExamTypeService examTypeService;
+
+
 
     @GetMapping
     @Operation(summary = "Tüm sınav türlerini listeler")
@@ -60,5 +63,20 @@ public class ExamTypeController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/group/{examGroup}")
+    public ResponseEntity<List<ExamType>> getExamTypesByGroup(@PathVariable Long examGroup) {
+        List<ExamType> examTypes = examTypeService.findByExamGroup(examGroup);
+        if (examTypes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(examTypes);
+    }
+
+    @GetMapping("/average-grade/{studentId}/{courseId}")
+    public ResponseEntity<Double> getAverageGradeForStudentInCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
+        Double averageGrade = examTypeService.calculateAverageGradeForStudentInCourse(studentId, courseId);
+        return ResponseEntity.ok(averageGrade);
     }
 }

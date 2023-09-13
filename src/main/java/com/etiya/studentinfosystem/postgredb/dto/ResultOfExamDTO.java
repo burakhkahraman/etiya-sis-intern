@@ -27,6 +27,4 @@ public class ResultOfExamDTO {
     @Schema(description = "Sınavın aktif olup olmadığı")
     private int isActive;
 
-    @Schema(description = "Sınavın türünün kısa kodu")
-    private String shortCode;
 }

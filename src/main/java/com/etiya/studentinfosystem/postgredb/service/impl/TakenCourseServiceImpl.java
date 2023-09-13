@@ -14,6 +14,7 @@ import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -86,7 +87,7 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     }
 
     @Override
-    public boolean canStudentTakeCourse(Long studentId, Long courseId) {
+    public ResponseEntity<String> canStudentTakeCourse(Long studentId, Long courseId) {
         // Öğrenci kontrolü
         if (!studentRepository.existsById(studentId)) {
             throw new RuntimeException("Öğrenci ID'si " + studentId + " olan öğrenci bulunamadı.");
@@ -101,20 +102,15 @@ public class TakenCourseServiceImpl implements TakenCourseService {
         if (takenCourseOpt.isPresent()) {
             Grade grade = takenCourseOpt.get().getGrade();
             if (grade == null) {
-                return false;  // Notu olmayan bir dersi tekrar alamaz
+                return  ResponseEntity.ok("Öğrenci dersi zaten aktif olarak alıyor tekrardan alamaz.");  // Notu olmayan bir dersi tekrar alamaz
             }
 
-            String gradeLetter = grade.getGradeLetter();
-            switch (gradeLetter) {
-                case "AA":
-                case "BA":
-                case "BB":
-                case "CB":
-                case "CC":
-                    return false;  // Bu notlara sahip dersleri tekrar alamaz
+            if (grade.getMinScore()>=60){
+                return  ResponseEntity.ok("geçtiniginiz dersi alamazsınız ");  // Notu olmayan bir dersi tekrar alamaz
+
             }
         }
-        return true;  // Diğer tüm durumlarda dersi alabilir
+        return  ResponseEntity.ok("Öğrenci bu dersi alabilir.");  // Diğer tüm durumlarda dersi alabilir
     }
 
     private TakenCourseDTO convertToDTO(TakenCourse takenCourse) {

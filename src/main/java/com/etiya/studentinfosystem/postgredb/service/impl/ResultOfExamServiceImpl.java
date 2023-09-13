@@ -27,6 +27,8 @@ public class ResultOfExamServiceImpl implements ResultOfExamService {
     @Autowired
     private TakenCourseRepository takenCourseRepository;
 
+
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -64,7 +66,7 @@ public class ResultOfExamServiceImpl implements ResultOfExamService {
                 // DTO'dan gelen bilgileri varlık nesnesine aktar
                 ResultOfExam resultFromDto = convertToEntity(resultDTO);
                 resultToUpdate.setScore(resultFromDto.getScore());
-                resultToUpdate.setShortCode(resultFromDto.getShortCode());
+                /*resultToUpdate.setShortCode(resultFromDto.getShortCode());*/
                 resultToUpdate.setIsActive(resultFromDto.getIsActive());
 
                 // Eğer DTO'da ilişkilendirilmiş varlıkların ID'leri varsa güncelle
@@ -98,6 +100,13 @@ public class ResultOfExamServiceImpl implements ResultOfExamService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<ResultOfExam> getResultsForStudentInCourse(Long studentId, Long courseId) {
+        TakenCourse takenCourse = takenCourseRepository.findByStudentIdAndCourseId(studentId, courseId)
+                .orElseThrow(() -> new RuntimeException("The student has not taken this course."));
+        return resultOfExamRepository.findByTakenCourse(takenCourse);
     }
 
     private ResultOfExamDTO convertToDTO(ResultOfExam result) {
