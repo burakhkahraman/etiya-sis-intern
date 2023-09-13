@@ -10,4 +10,10 @@ public interface ExamTypeService {
     ExamType createExamType(ExamType examType);
     ExamType updateExamType(Long id, ExamType examType);
     void deleteExamType(Long id);
+
+    List<ExamType> findByExamGroup(Long examGroupId);
+
+    Double calculateAverageGradeForStudentInCourse(Long studentId, Long courseId);
+
+
 }

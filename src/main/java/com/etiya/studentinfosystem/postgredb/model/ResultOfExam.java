@@ -35,7 +35,7 @@ public class ResultOfExam {
     @Schema(description = "Sınavın aktif olup olmadığı")
     private int isActive;
 
-    @Column(name = "short_code")
+ /*   @Column(name = "short_code")
     @Schema(description = "Sınavın türünün kısa kodu")
-    private String shortCode;
+    private String shortCode;*/
 }

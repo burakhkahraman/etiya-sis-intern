@@ -12,4 +12,6 @@ public interface ResultOfExamService {
     ResultOfExamDTO createResult(ResultOfExamDTO resultDTO);
     Optional<ResultOfExamDTO> updateResult(Long id, ResultOfExamDTO resultDTO);
     boolean deleteResult(Long id);
+    List<ResultOfExam> getResultsForStudentInCourse(Long studentId, Long courseId);
+
 }

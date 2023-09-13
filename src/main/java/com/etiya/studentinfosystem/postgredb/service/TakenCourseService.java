@@ -3,6 +3,7 @@ package com.etiya.studentinfosystem.postgredb.service;
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.etiya.studentinfosystem.postgredb.model.TakenCourse;
 import com.etiya.studentinfosystem.postgredb.request.TakenCourseRequest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,6 @@ public interface TakenCourseService {
 
     void deleteTakenCourse(Long id);
 
-    boolean canStudentTakeCourse(Long studentId, Long courseId);
+    ResponseEntity<String> canStudentTakeCourse(Long studentId, Long courseId);
 
 }

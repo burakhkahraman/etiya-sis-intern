@@ -25,7 +25,7 @@ public class ExamType {
 
     @Column(name = "weight")
     @Schema(description = "Sınavın ortalamaya olan etkisi")
-    private Long weight;
+    private Double weight;
 
     @Column(name = "parent_exam_type_id")
     @Schema(description = "Eğer bütünleme sınavına kalındıysa, diğer koşulları da göz önüne alarak final notunun ortalamaya dahil edilmemesini sağlayacak olan parentExamTypeID")
@@ -39,7 +39,12 @@ public class ExamType {
     @Schema(description = "Sınav türünün aktif olup olmadığına dair durum")
     private int isActive;
 
-    @OneToMany(mappedBy = "examType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "exam_group")
+    @Schema(description = "Sınav türlerini gruplayan alan")
+    private Long examGroup;
+
+
+/*    @OneToMany(mappedBy = "examType", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
-    private List<ResultOfExam> results = new ArrayList<>();
+    private List<ResultOfExam> results = new ArrayList<>();*/
 }
