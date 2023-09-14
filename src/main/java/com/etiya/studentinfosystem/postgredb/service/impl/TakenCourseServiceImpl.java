@@ -1,11 +1,10 @@
 package com.etiya.studentinfosystem.postgredb.service.impl;
 
+import com.etiya.studentinfosystem.postgredb.dto.ResultOfExamDTO;
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
-import com.etiya.studentinfosystem.postgredb.model.Course;
-import com.etiya.studentinfosystem.postgredb.model.Grade;
-import com.etiya.studentinfosystem.postgredb.model.Student;
-import com.etiya.studentinfosystem.postgredb.model.TakenCourse;
+import com.etiya.studentinfosystem.postgredb.model.*;
 import com.etiya.studentinfosystem.postgredb.repository.CourseRepository;
+import com.etiya.studentinfosystem.postgredb.repository.ResultOfExamRepository;
 import com.etiya.studentinfosystem.postgredb.repository.StudentRepository;
 import com.etiya.studentinfosystem.postgredb.repository.TakenCourseRepository;
 import com.etiya.studentinfosystem.postgredb.request.TakenCourseRequest;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,6 +32,9 @@ public class TakenCourseServiceImpl implements TakenCourseService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private ResultOfExamRepository resultOfExamRepository;
 
     private final Mapper dozerMapper = DozerBeanMapperBuilder.create()
             .withMappingFiles("TakenCourseDozer.xml")
@@ -77,6 +80,35 @@ public class TakenCourseServiceImpl implements TakenCourseService {
         Student student = studentRepository.findById(request.getStudentId())
                 .orElseThrow(() -> new IllegalArgumentException("Student not found for ID: " + request.getStudentId()));
         takenCourse.setStudent(student);
+    }
+    public List<TakenCourseDTO> getStudentCoursesWithGrades(Long studentId) {
+        List<TakenCourse> takenCourses = takenCourseRepository.findByStudentId(studentId);
+        List<TakenCourseDTO> dtos = new ArrayList<>();
+
+        for (TakenCourse takenCourse : takenCourses) {
+            TakenCourseDTO dto = new TakenCourseDTO();
+            dto.setStudentId(studentId);
+            dto.setCourseName(takenCourse.getCourse().getCourseName());
+            dto.setTerm(takenCourse.getTerm());
+            dto.setGradeId(takenCourse.getGrade().getId());
+            dto.setIsActive(takenCourse.getIsActive());
+
+            // Fetch the exam results for this takenCourse and set them to the DTO.
+            List<ResultOfExam> results = resultOfExamRepository.findByTakenCourse(takenCourse);
+            List<ResultOfExamDTO> examResultDTOs = new ArrayList<>();
+            for (ResultOfExam result : results) {
+                ResultOfExamDTO resultDTO = new ResultOfExamDTO();
+                resultDTO.setExamTypeName(result.getExamType().getExamName());
+                resultDTO.setScore(Double.valueOf(result.getScore()));
+                // You can also set other fields, like the exam name, if needed.
+                examResultDTOs.add(resultDTO);
+            }
+            dto.setExamResults(examResultDTOs);
+
+            dtos.add(dto);
+        }
+
+        return dtos;
     }
 
     @Override

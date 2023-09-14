@@ -5,11 +5,10 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TakenCourseDTO {
+public class StudentTakenCoursesDTO {
+
     private Long studentId;
     private String courseName;
     private String term;
-    private Long gradeId;
-    private int isActive;
     private List<ResultOfExamDTO> examResults;
 }

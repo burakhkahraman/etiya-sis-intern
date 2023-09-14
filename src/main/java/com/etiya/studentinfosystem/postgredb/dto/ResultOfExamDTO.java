@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResultOfExamDTO {
+/*
     @Schema(description = "Sınav sonucunun benzersiz tanımlayıcısı")
     private Long id;
 
@@ -26,5 +27,23 @@ public class ResultOfExamDTO {
 
     @Schema(description = "Sınavın aktif olup olmadığı")
     private int isActive;
+*/
+/*private Long studentId;
+    private String courseName;
+    private String term;*/
+
+/*    private String courseName; // Ders adı
+    private String examTypeName;
+    private Long gradeId;
+    private int isActive;
+    private Long examTypeId;
+    private Long takenCourseId;
+    private Double score;*/
+
+    private String courseName;
+    private String examTypeName;
+    private Double score;
+    private Long examTypeId;
+    private Long takenCourseId;
 
 }

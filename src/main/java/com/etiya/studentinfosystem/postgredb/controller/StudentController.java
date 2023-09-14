@@ -1,7 +1,10 @@
 package com.etiya.studentinfosystem.postgredb.controller;
 
+import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.etiya.studentinfosystem.postgredb.model.Student;
 import com.etiya.studentinfosystem.postgredb.service.StudentService;
+import com.etiya.studentinfosystem.postgredb.service.TakenCourseService;
+import com.etiya.studentinfosystem.postgredb.service.impl.StudentInfoServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private TakenCourseService takenCourseService;
 
     // CREATE
     @PostMapping
@@ -55,5 +61,11 @@ public class StudentController {
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{studentId}/coursesWithGrades")
+    public ResponseEntity<List<TakenCourseDTO>> getStudentCoursesWithGrades(@PathVariable Long studentId) {
+        List<TakenCourseDTO> dtos = takenCourseService.getStudentCoursesWithGrades(studentId);
+        return ResponseEntity.ok(dtos);
     }
 }
