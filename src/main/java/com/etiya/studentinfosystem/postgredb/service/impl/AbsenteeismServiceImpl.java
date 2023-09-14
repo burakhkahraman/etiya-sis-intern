@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.service.impl;
 
+import com.etiya.studentinfosystem.postgredb.dto.AbsenteeismDTO;
 import com.etiya.studentinfosystem.postgredb.model.Absenteeism;
 import com.etiya.studentinfosystem.postgredb.repository.AbsenteeismRepository;
 import com.etiya.studentinfosystem.postgredb.service.AbsenteeismService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AbsenteeismServiceImpl implements AbsenteeismService {
@@ -18,9 +20,20 @@ public class AbsenteeismServiceImpl implements AbsenteeismService {
         return absenteeismRepository.save(absenteeism);
     }
 
-    @Override
-    public List<Absenteeism> findAllAbsenteeisms() {
-        return absenteeismRepository.findAll();
+    public List<AbsenteeismDTO> findAllAbsenteeisms() {
+        return absenteeismRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private AbsenteeismDTO convertToDTO(Absenteeism absenteeism) {
+        AbsenteeismDTO dto = new AbsenteeismDTO();
+        dto.setId(absenteeism.getId());
+        dto.setDate(absenteeism.getDate());
+        dto.setDuration(absenteeism.getDuration());
+        dto.setIsActive(absenteeism.getIsActive());
+        dto.setStudentName(absenteeism.getStudent().getFirstName() + " " + absenteeism.getStudent().getLastName());
+        return dto;
     }
 
     @Override

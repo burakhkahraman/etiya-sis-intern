@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.controller;
 
+import com.etiya.studentinfosystem.postgredb.dto.AbsenteeismDTO;
 import com.etiya.studentinfosystem.postgredb.model.Absenteeism;
 import com.etiya.studentinfosystem.postgredb.service.AbsenteeismService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,8 +26,8 @@ public class AbsenteeismController {
 
     // READ
     @GetMapping
-    public ResponseEntity<List<Absenteeism>> getAllAbsenteeisms() {
-        List<Absenteeism> absenteeisms = absenteeismService.findAllAbsenteeisms();
+    public ResponseEntity<List<AbsenteeismDTO>> getAllAbsenteeisms() {
+        List<AbsenteeismDTO> absenteeisms = absenteeismService.findAllAbsenteeisms();
         return ResponseEntity.ok(absenteeisms);
     }
 

@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.service;
 
+import com.etiya.studentinfosystem.postgredb.dto.AbsenteeismDTO;
 import com.etiya.studentinfosystem.postgredb.model.Absenteeism;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public interface AbsenteeismService {
     Absenteeism saveAbsenteeism(Absenteeism absenteeism);
 
-    List<Absenteeism> findAllAbsenteeisms();
+    List<AbsenteeismDTO> findAllAbsenteeisms();
 
     Absenteeism findAbsenteeismById(Long id);
 

@@ -17,8 +17,15 @@ public class Absenteeism {
     @Schema(description = "Devamsızlığın benzersiz tanımlayıcısı")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "taken_course_id", referencedColumnName = "id")
     @Schema(description = "Hangi derse ait olduğuna dair bilgi")
-    private Long takencourseId;
+    private TakenCourse takenCourse;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
+    @Schema(description = "Bu devamsızlık kaydına sahip öğrenci")
+    private Student student;
 
     @Schema(description = "Devamsızlık tarihi")
     private String date;
