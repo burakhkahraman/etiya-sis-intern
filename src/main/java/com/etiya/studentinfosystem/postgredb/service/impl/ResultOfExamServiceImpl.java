@@ -82,10 +82,6 @@ public class ResultOfExamServiceImpl implements ResultOfExamService {
     private ResultOfExamDTO convertToDTO(ResultOfExam result) {
         ResultOfExamDTO dto = modelMapper.map(result, ResultOfExamDTO.class);
 
-        // Course Name
-        if (result.getTakenCourse() != null && result.getTakenCourse().getCourse() != null) {
-            dto.setCourseName(result.getTakenCourse().getCourse().getCourseName());
-        }
 
         // Exam Type Name
         if (result.getExamType() != null) {

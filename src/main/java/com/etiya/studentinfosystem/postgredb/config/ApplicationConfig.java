@@ -14,9 +14,7 @@ public class ApplicationConfig {
     public ModelMapper modelMapper() {
         ModelMapper mapper = new ModelMapper();
 
-        mapper.createTypeMap(ResultOfExam.class, ResultOfExamDTO.class)
-                .addMapping(src -> src.getExamType().getId(), ResultOfExamDTO::setExamTypeId)
-                .addMapping(src -> src.getTakenCourse().getId(), ResultOfExamDTO::setTakenCourseId);
+
 
         return mapper;
     }

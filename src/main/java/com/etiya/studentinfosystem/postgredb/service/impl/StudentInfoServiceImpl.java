@@ -42,7 +42,6 @@ public class StudentInfoServiceImpl {
 
     private ResultOfExamDTO mapToResultOfExamDTO(ResultOfExam result) {
         ResultOfExamDTO dto = new ResultOfExamDTO();
-        dto.setCourseName(result.getTakenCourse().getCourse().getCourseName());
         dto.setExamTypeName(result.getExamType().getExamName());
         dto.setScore(Double.valueOf(result.getScore()));
         return dto;
