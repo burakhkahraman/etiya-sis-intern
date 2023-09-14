@@ -8,6 +8,7 @@ import java.util.List;
 public class StudentTakenCoursesDTO {
 
     private Long studentId;
+    private String studentName;
     private String courseName;
     private String term;
     private List<ResultOfExamDTO> examResults;

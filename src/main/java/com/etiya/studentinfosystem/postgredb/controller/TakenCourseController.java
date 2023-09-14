@@ -56,4 +56,10 @@ public class TakenCourseController {
     public void deleteTakenCourse(@PathVariable Long id) {
         takenCourseService.deleteTakenCourse(id);
     }
+
+
+    @GetMapping("/finishterm")
+    public TakenCourseDTO finishTerm() {
+
+    }
 }
