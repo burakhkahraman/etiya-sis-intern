@@ -28,11 +28,17 @@ public class AbsenteeismServiceImpl implements AbsenteeismService {
 
     private AbsenteeismDTO convertToDTO(Absenteeism absenteeism) {
         AbsenteeismDTO dto = new AbsenteeismDTO();
+
         dto.setId(absenteeism.getId());
         dto.setDate(absenteeism.getDate());
         dto.setDuration(absenteeism.getDuration());
         dto.setIsActive(absenteeism.getIsActive());
-        dto.setStudentName(absenteeism.getStudent().getFirstName() + " " + absenteeism.getStudent().getLastName());
+
+        if(absenteeism.getStudent() != null) {
+            dto.setStudentId(absenteeism.getStudent().getId());
+            dto.setStudentName(absenteeism.getStudent().getFirstName() + " " + absenteeism.getStudent().getLastName());
+        }
+
         return dto;
     }
 
