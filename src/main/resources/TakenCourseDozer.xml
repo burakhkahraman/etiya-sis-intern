@@ -12,6 +12,8 @@
             <a>student.id</a>
             <b>studentId</b>
         </field>
+
+
         <field>
             <a>course.courseName</a> <!-- Assuming that the Course entity has a courseName field -->
             <b>courseName</b>
@@ -21,8 +23,8 @@
             <b>term</b>
         </field>
         <field>
-            <a>grade.id</a>
-            <b>gradeId</b>
+            <a>grade.gradeLetter</a>
+            <b>gradeLetter</b>
         </field>
         <field>
             <a>isActive</a>

@@ -21,7 +21,10 @@ public class AbsenteeismServiceImpl implements AbsenteeismService {
     }
 
     public List<AbsenteeismDTO> findAllAbsenteeisms() {
-        return absenteeismRepository.findAll().stream()
+       List<Absenteeism> a = absenteeismRepository.findAll();
+
+
+        return a.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -38,6 +41,10 @@ public class AbsenteeismServiceImpl implements AbsenteeismService {
             dto.setStudentId(absenteeism.getStudent().getId());
             dto.setStudentName(absenteeism.getStudent().getFirstName() + " " + absenteeism.getStudent().getLastName());
         }
+        if(absenteeism.getTakenCourse() != null && absenteeism.getTakenCourse().getCourse() != null) {
+            dto.setCourseName(absenteeism.getTakenCourse().getCourse().getCourseName());
+        }
+
 
         return dto;
     }

@@ -90,8 +90,9 @@ public class TakenCourseServiceImpl implements TakenCourseService {
             dto.setStudentId(studentId);
             dto.setCourseName(takenCourse.getCourse().getCourseName());
             dto.setTerm(takenCourse.getTerm());
-            dto.setGradeId(takenCourse.getGrade().getId());
+            dto.setGradeLetter(takenCourse.getGrade().getGradeLetter());
             dto.setIsActive(takenCourse.getIsActive());
+            dto.setStudentName(takenCourse.getStudent().getFirstName() + " " + takenCourse.getStudent().getLastName());
 
             List<ResultOfExam> results = resultOfExamRepository.findByTakenCourse(takenCourse);
             List<ResultOfExamDTO> examResultDTOs = new ArrayList<>();
@@ -107,6 +108,19 @@ public class TakenCourseServiceImpl implements TakenCourseService {
         }
 
         return dtos;
+    }
+
+    @Override
+    public List<TakenCourseDTO> finishTerm() {
+
+        //taken_courses tablosundan tüm kayıtların sadece grade_id olmayanları çekiyoruz
+        //her bir tanesi için result_of_examdan bütün sınav sonuçlarını alıp her ders ozelinde ortalamasını bulup grade id bulucaksın
+        //grade id güncelle
+        //repo.save
+
+
+
+        return getAllTakenCourses();
     }
 
     @Override
@@ -144,6 +158,17 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     }
 
     private TakenCourseDTO convertToDTO(TakenCourse takenCourse) {
-        return dozerMapper.map(takenCourse, TakenCourseDTO.class);
+        TakenCourseDTO dto = dozerMapper.map(takenCourse, TakenCourseDTO.class);
+        System.out.println("After Dozer mapping, studentName: " + dto.getStudentName());
+
+        // Öğrencinin adı ve soyadı bilgisini ekliyoruz
+        if (takenCourse.getStudent() != null) {
+            System.out.println("Student: " + takenCourse.getStudent().getFirstName() + " " + takenCourse.getStudent().getLastName()); // bu satırı ekleyin
+            dto.setStudentName(takenCourse.getStudent().getFirstName() + " " + takenCourse.getStudent().getLastName());
+        } else {
+            System.out.println("Student is null for TakenCourse ID: " + takenCourse.getId()); // bu satırı ekleyin
+        }
+
+        return dto;
     }
 }
