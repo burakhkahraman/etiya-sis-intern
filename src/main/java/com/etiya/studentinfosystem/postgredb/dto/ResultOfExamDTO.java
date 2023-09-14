@@ -40,10 +40,9 @@ public class ResultOfExamDTO {
     private Long takenCourseId;
     private Double score;*/
 
-    private String courseName;
+
     private String examTypeName;
     private Double score;
-    private Long examTypeId;
-    private Long takenCourseId;
+
 
 }

@@ -93,14 +93,12 @@ public class TakenCourseServiceImpl implements TakenCourseService {
             dto.setGradeId(takenCourse.getGrade().getId());
             dto.setIsActive(takenCourse.getIsActive());
 
-            // Fetch the exam results for this takenCourse and set them to the DTO.
             List<ResultOfExam> results = resultOfExamRepository.findByTakenCourse(takenCourse);
             List<ResultOfExamDTO> examResultDTOs = new ArrayList<>();
             for (ResultOfExam result : results) {
                 ResultOfExamDTO resultDTO = new ResultOfExamDTO();
                 resultDTO.setExamTypeName(result.getExamType().getExamName());
                 resultDTO.setScore(Double.valueOf(result.getScore()));
-                // You can also set other fields, like the exam name, if needed.
                 examResultDTOs.add(resultDTO);
             }
             dto.setExamResults(examResultDTOs);
