@@ -27,8 +27,6 @@ public class ResultOfExamServiceImpl implements ResultOfExamService {
     @Autowired
     private TakenCourseRepository takenCourseRepository;
 
-
-
     @Autowired
     private ModelMapper modelMapper;
 
@@ -49,45 +47,17 @@ public class ResultOfExamServiceImpl implements ResultOfExamService {
     public ResultOfExamDTO createResult(ResultOfExamDTO resultDTO) {
         ResultOfExam result = convertToEntity(resultDTO);
         result = resultOfExamRepository.save(result);
-        ResultOfExamDTO savedDTO = convertToDTO(result);
-
-        savedDTO.setExamTypeId(result.getExamType().getId());
-        savedDTO.setTakenCourseId(result.getTakenCourse().getId());
-
-        return savedDTO;
+        return convertToDTO(result);
     }
 
     @Override
     public Optional<ResultOfExamDTO> updateResult(Long id, ResultOfExamDTO resultDTO) {
-        if (examTypeRepository.existsById(id)) {
+        if (resultOfExamRepository.existsById(id)) {
             ResultOfExam resultToUpdate = resultOfExamRepository.findById(id).orElse(null);
-
             if (resultToUpdate != null) {
-                // DTO'dan gelen bilgileri varlık nesnesine aktar
-                ResultOfExam resultFromDto = convertToEntity(resultDTO);
-                resultToUpdate.setScore(resultFromDto.getScore());
-                /*resultToUpdate.setShortCode(resultFromDto.getShortCode());*/
-                resultToUpdate.setIsActive(resultFromDto.getIsActive());
-
-                // Eğer DTO'da ilişkilendirilmiş varlıkların ID'leri varsa güncelle
-                if (resultDTO.getExamTypeId() != null) {
-                    ExamType examType = examTypeRepository.findById(resultDTO.getExamTypeId()).orElse(null);
-                    resultToUpdate.setExamType(examType);
-                }
-                if (resultDTO.getTakenCourseId() != null) {
-                    TakenCourse takenCourse = takenCourseRepository.findById(resultDTO.getTakenCourseId()).orElse(null);
-                    resultToUpdate.setTakenCourse(takenCourse);
-                }
-
-                // Değişiklikleri kaydet
+                modelMapper.map(resultDTO, resultToUpdate);
                 resultOfExamRepository.save(resultToUpdate);
-
-                // Güncellenen varlığı DTO'ya dönüştür ve geri döndür
-                ResultOfExamDTO updatedDto = convertToDTO(resultToUpdate);
-                updatedDto.setExamTypeId(resultToUpdate.getExamType().getId());
-                updatedDto.setTakenCourseId(resultToUpdate.getTakenCourse().getId());
-
-                return Optional.of(updatedDto);
+                return Optional.of(convertToDTO(resultToUpdate));
             }
         }
         return Optional.empty();
@@ -110,22 +80,25 @@ public class ResultOfExamServiceImpl implements ResultOfExamService {
     }
 
     private ResultOfExamDTO convertToDTO(ResultOfExam result) {
-        return modelMapper.map(result, ResultOfExamDTO.class);
+        ResultOfExamDTO dto = modelMapper.map(result, ResultOfExamDTO.class);
+
+        // Course Name
+        if (result.getTakenCourse() != null && result.getTakenCourse().getCourse() != null) {
+            dto.setCourseName(result.getTakenCourse().getCourse().getCourseName());
+        }
+
+        // Exam Type Name
+        if (result.getExamType() != null) {
+            dto.setExamTypeName(result.getExamType().getExamName());
+        }
+
+        dto.setScore(Double.valueOf(result.getScore()));
+
+        return dto;
     }
 
     private ResultOfExam convertToEntity(ResultOfExamDTO resultDTO) {
         ResultOfExam result = modelMapper.map(resultDTO, ResultOfExam.class);
-
-        if (resultDTO.getExamTypeId() != null) {
-            ExamType examType = examTypeRepository.findById(resultDTO.getExamTypeId()).orElse(null);
-            result.setExamType(examType);
-        }
-
-        if (resultDTO.getTakenCourseId() != null) {
-            TakenCourse takenCourse = takenCourseRepository.findById(resultDTO.getTakenCourseId()).orElse(null);
-            result.setTakenCourse(takenCourse);
-        }
-
         return result;
     }
 }

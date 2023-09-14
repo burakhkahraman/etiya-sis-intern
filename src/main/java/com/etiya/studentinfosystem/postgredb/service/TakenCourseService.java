@@ -21,4 +21,6 @@ public interface TakenCourseService {
 
     ResponseEntity<String> canStudentTakeCourse(Long studentId, Long courseId);
 
+    List<TakenCourseDTO> getStudentCoursesWithGrades(Long studentId);
 }
+
