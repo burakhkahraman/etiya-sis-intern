@@ -13,4 +13,6 @@ public class AbsenteeismDTO {
     private int duration;
     private int isActive;
     private String studentName;
+    private Long studentId;
+
 }
