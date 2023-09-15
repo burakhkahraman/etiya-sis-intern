@@ -22,7 +22,7 @@ The technologies you need before starting:
 
 ```
 Java 11
-Maven 3.6+
+Maven 3.9+
 PostgreSQL 12+
 ...
 ```
