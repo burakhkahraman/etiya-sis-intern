@@ -23,6 +23,6 @@ public interface TakenCourseService {
 
     List<TakenCourseDTO> getStudentCoursesWithGrades(Long studentId);
 
-    List<TakenCourseDTO> finishTerm();
+    String finishTerm(Long studentId);
 }
 
