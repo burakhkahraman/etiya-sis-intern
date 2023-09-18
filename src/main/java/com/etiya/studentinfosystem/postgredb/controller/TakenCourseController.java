@@ -58,8 +58,8 @@ public class TakenCourseController {
     }
 
 
-    @GetMapping("/finishterm")
-    public TakenCourseDTO finishTerm() {
-
+    @GetMapping("/finishterm/{studentId}")
+    public String finishTerm(@PathVariable Long studentId) {
+        return takenCourseService.finishTerm(studentId);
     }
 }

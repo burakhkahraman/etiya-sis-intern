@@ -13,5 +13,6 @@ public interface TakenCourseRepository extends JpaRepository<TakenCourse, Long> 
     List<TakenCourse> findByStudentId(Long studentId);
     Optional<TakenCourse> findByStudentIdAndCourseId(Long studentId, Long courseId);
 
+    List<TakenCourse> findAllByGradeIsNull();
 
 }

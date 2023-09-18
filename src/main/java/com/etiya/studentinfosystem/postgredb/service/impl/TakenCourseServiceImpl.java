@@ -3,10 +3,7 @@ package com.etiya.studentinfosystem.postgredb.service.impl;
 import com.etiya.studentinfosystem.postgredb.dto.ResultOfExamDTO;
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.etiya.studentinfosystem.postgredb.model.*;
-import com.etiya.studentinfosystem.postgredb.repository.CourseRepository;
-import com.etiya.studentinfosystem.postgredb.repository.ResultOfExamRepository;
-import com.etiya.studentinfosystem.postgredb.repository.StudentRepository;
-import com.etiya.studentinfosystem.postgredb.repository.TakenCourseRepository;
+import com.etiya.studentinfosystem.postgredb.repository.*;
 import com.etiya.studentinfosystem.postgredb.request.TakenCourseRequest;
 import com.etiya.studentinfosystem.postgredb.service.TakenCourseService;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
@@ -35,6 +32,12 @@ public class TakenCourseServiceImpl implements TakenCourseService {
 
     @Autowired
     private ResultOfExamRepository resultOfExamRepository;
+
+    @Autowired
+    private ExamTypeServiceImpl examTypeService;
+
+    @Autowired
+    private GradeRepository gradeRepository;
 
     private final Mapper dozerMapper = DozerBeanMapperBuilder.create()
             .withMappingFiles("TakenCourseDozer.xml")
@@ -111,16 +114,55 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     }
 
     @Override
-    public List<TakenCourseDTO> finishTerm() {
+    public String finishTerm(Long studentId) {
 
         //taken_courses tablosundan tüm kayıtların sadece grade_id olmayanları çekiyoruz
         //her bir tanesi için result_of_examdan bütün sınav sonuçlarını alıp her ders ozelinde ortalamasını bulup grade id bulucaksın
         //grade id güncelle
         //repo.save
+        // Öğrenci için grade_id'si null olan dersleri al
 
+        List<TakenCourse> coursesOfStudent = takenCourseRepository.findByStudentId(studentId);
+        if (coursesOfStudent.isEmpty()) {
+            return "Öğrenci için kaydedilmiş ders bulunamadı.";
+        }
 
+        // Her dersin ağırlıklı ortalamasını saklamak için bir liste oluştur
+        List<Double> weightedAverages = new ArrayList<>();
 
-        return getAllTakenCourses();
+        Double totalWeightedSum = 0.0; // Tüm derslerin ağırlıklı ortalamalarının toplamı
+
+        for (TakenCourse course : coursesOfStudent) {
+            Double avg = examTypeService.calculateAverageGradeForStudentInCourse(studentId, course.getCourse().getId());
+            weightedAverages.add(avg);
+            totalWeightedSum += avg;
+        }
+
+        // Derslerin ağırlıklı ortalamalarını topla ve ders sayısına bölerek genel ortalama elde et
+        Double totalAverage = totalWeightedSum / coursesOfStudent.size();
+
+        // Ortalama değerlendirme
+        boolean hasPassedTheTerm = totalAverage >= 50.0;
+
+        // En son alınan dersi bul
+        String lastTerm = coursesOfStudent.get(0).getTerm();
+
+        StringBuilder resultBuilder = new StringBuilder();
+        for (int i = 0; i < coursesOfStudent.size(); i++) {
+            TakenCourse course = coursesOfStudent.get(i);
+            resultBuilder.append(course.getCourse().getCourseName())
+                    .append(" dersi ortalaması: ")
+                    .append(weightedAverages.get(i))
+                    .append("\n");
+        }
+
+        if (!hasPassedTheTerm) {
+            resultBuilder.append(lastTerm + " dönemini başarısız bir şekilde tamamladınız. Daha çok çalışmalısınız.");
+        } else {
+            resultBuilder.append(lastTerm + " dönemini başarılı bir şekilde tamamladınız. Tebrikler!");
+        }
+
+        return resultBuilder.toString();
     }
 
     @Override
