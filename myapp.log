@@ -71,3 +71,60 @@ FALL 2022 dönemini başarılı bir şekilde tamamladınız. Tebrikler!
 2023-09-19T17:33:31.831+03:00  INFO 19652 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-09-19T17:33:31.853+03:00  INFO 19652 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-09-19T17:33:31.859+03:00  INFO 19652 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-09-19T18:16:26.995+03:00  INFO 4412 --- [main] EtiyaStudentInformationSystemApplication : Starting EtiyaStudentInformationSystemApplication using Java 20.0.2 with PID 4412 (C:\Users\1190606041\OneDrive - nku.edu.tr\Masaüstü\Burki\etiya-sis-intern\target\classes started by 1190606041 in C:\Users\1190606041\OneDrive - nku.edu.tr\Masaüstü\Burki\etiya-sis-intern)
+2023-09-19T18:16:26.997+03:00  INFO 4412 --- [main] EtiyaStudentInformationSystemApplication : No active profile set, falling back to 1 default profile: "default"
+2023-09-19T18:16:27.831+03:00  INFO 4412 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-19T18:16:27.929+03:00  INFO 4412 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 92 ms. Found 14 JPA repository interfaces.
+2023-09-19T18:16:28.700+03:00  INFO 4412 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-09-19T18:16:28.711+03:00  INFO 4412 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-09-19T18:16:28.711+03:00  INFO 4412 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-09-19T18:16:28.833+03:00  INFO 4412 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-09-19T18:16:28.834+03:00  INFO 4412 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1788 ms
+2023-09-19T18:16:29.073+03:00  INFO 4412 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-19T18:16:29.165+03:00  INFO 4412 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-09-19T18:16:29.168+03:00  INFO 4412 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-09-19T18:16:29.351+03:00  INFO 4412 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-19T18:16:29.515+03:00  INFO 4412 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-09-19T18:16:29.534+03:00  INFO 4412 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-19T18:16:29.703+03:00  INFO 4412 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6fe5da76
+2023-09-19T18:16:29.704+03:00  INFO 4412 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-19T18:16:29.745+03:00  WARN 4412 --- [main] org.hibernate.orm.deprecation            : HHH90000026: PostgreSQL10Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
+2023-09-19T18:16:30.122+03:00  INFO 4412 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-19T18:16:30.987+03:00  INFO 4412 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-19T18:16:31.214+03:00  INFO 4412 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-19T18:16:31.950+03:00  INFO 4412 --- [main] c.g.d.core.DozerBeanMapperBuilder        : Initializing Dozer. Version: 6.5.2, Thread Name: main
+2023-09-19T18:16:31.951+03:00  INFO 4412 --- [main] c.g.dozermapper.core.util.RuntimeUtils   : OSGi support is false
+2023-09-19T18:16:31.955+03:00  INFO 4412 --- [main] d.c.c.r.LegacyPropertiesSettingsResolver : Trying to find Dozer configuration file: dozer.properties
+2023-09-19T18:16:31.959+03:00  INFO 4412 --- [main] d.c.c.r.LegacyPropertiesSettingsResolver : Failed to find dozer.properties via com.github.dozermapper.core.config.resolvers.LegacyPropertiesSettingsResolver.
+2023-09-19T18:16:31.964+03:00  INFO 4412 --- [main] c.g.d.core.el.ELExpressionFactory        : javax.el is not supported; Failed to resolve ExpressionFactory, com.sun.el.ExpressionFactoryImpl
+2023-09-19T18:16:31.983+03:00  INFO 4412 --- [main] c.g.d.c.b.xml.BeanMappingXMLBuilder      : Using URL [DozerBeanConfig.xml] to load custom xml mappings
+2023-09-19T18:16:32.207+03:00  INFO 4412 --- [main] c.g.d.c.b.xml.SchemaLSResourceResolver   : Trying to resolve XML entity with public ID [null] and system ID [http://dozermapper.github.io/schema/bean-mapping.xsd]
+2023-09-19T18:16:32.209+03:00  INFO 4412 --- [main] c.g.d.c.b.xml.SchemaLSResourceResolver   : Resolved public ID [null] and system ID [http://dozermapper.github.io/schema/bean-mapping.xsd]
+2023-09-19T18:16:32.238+03:00  INFO 4412 --- [main] c.g.d.c.b.xml.BeanMappingXMLBuilder      : Successfully loaded custom xml mapping.
+2023-09-19T18:16:32.752+03:00  INFO 4412 --- [main] c.g.d.core.DozerBeanMapperBuilder        : Initializing Dozer. Version: 6.5.2, Thread Name: main
+2023-09-19T18:16:32.753+03:00  INFO 4412 --- [main] d.c.c.r.LegacyPropertiesSettingsResolver : Trying to find Dozer configuration file: dozer.properties
+2023-09-19T18:16:32.753+03:00  INFO 4412 --- [main] d.c.c.r.LegacyPropertiesSettingsResolver : Failed to find dozer.properties via com.github.dozermapper.core.config.resolvers.LegacyPropertiesSettingsResolver.
+2023-09-19T18:16:32.754+03:00  INFO 4412 --- [main] c.g.d.c.b.xml.BeanMappingXMLBuilder      : Using URL [TakenCourseDozer.xml] to load custom xml mappings
+2023-09-19T18:16:32.778+03:00  INFO 4412 --- [main] c.g.d.c.b.xml.SchemaLSResourceResolver   : Trying to resolve XML entity with public ID [null] and system ID [http://dozermapper.github.io/schema/bean-mapping.xsd]
+2023-09-19T18:16:32.778+03:00  INFO 4412 --- [main] c.g.d.c.b.xml.SchemaLSResourceResolver   : Resolved public ID [null] and system ID [http://dozermapper.github.io/schema/bean-mapping.xsd]
+2023-09-19T18:16:32.787+03:00  INFO 4412 --- [main] c.g.d.c.b.xml.BeanMappingXMLBuilder      : Successfully loaded custom xml mapping.
+2023-09-19T18:16:32.845+03:00  INFO 4412 --- [main] c.g.d.core.DozerBeanMapperBuilder        : Initializing Dozer. Version: 6.5.2, Thread Name: main
+2023-09-19T18:16:32.845+03:00  INFO 4412 --- [main] d.c.c.r.LegacyPropertiesSettingsResolver : Trying to find Dozer configuration file: dozer.properties
+2023-09-19T18:16:32.846+03:00  INFO 4412 --- [main] d.c.c.r.LegacyPropertiesSettingsResolver : Failed to find dozer.properties via com.github.dozermapper.core.config.resolvers.LegacyPropertiesSettingsResolver.
+2023-09-19T18:16:33.003+03:00  WARN 4412 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-19T18:16:33.155+03:00  INFO 4412 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@59acb725, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2291fb1, org.springframework.security.web.context.SecurityContextHolderFilter@2e7a6dcd, org.springframework.security.web.header.HeaderWriterFilter@ebe3561, org.springframework.security.web.authentication.logout.LogoutFilter@63c6579, com.etiya.studentinfosystem.postgredb.jwt.JwtAuthenticationFilter@72b689f6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7b0d42b6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@179af25f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@213f2d00, org.springframework.security.web.session.SessionManagementFilter@14b3976, org.springframework.security.web.access.ExceptionTranslationFilter@31084f37, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@31a1b37b]
+2023-09-19T18:16:33.507+03:00  WARN 4412 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-09-19T18:16:33.823+03:00  INFO 4412 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-09-19T18:16:33.832+03:00  INFO 4412 --- [main] EtiyaStudentInformationSystemApplication : Started EtiyaStudentInformationSystemApplication in 7.304 seconds (process running for 8.314)
+2023-09-19T18:16:37.590+03:00  INFO 4412 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-09-19T18:16:37.592+03:00  INFO 4412 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-09-19T18:16:37.594+03:00  INFO 4412 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-09-19T18:16:39.172+03:00  INFO 4412 --- [http-nio-8080-exec-8] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 721 ms
+2023-09-19T18:16:50.651+03:00  INFO 4412 --- [http-nio-8080-exec-1] c.e.s.postgredb.aspect.MyLoggingAspect   : Entering method: finishTerm of class: TakenCourseServiceImpl
+2023-09-19T18:16:50.861+03:00  INFO 4412 --- [http-nio-8080-exec-1] c.e.s.postgredb.aspect.MyLoggingAspect   : Entering method: calculateAverageGradeForStudentInCourse of class: ExamTypeServiceImpl
+2023-09-19T18:16:50.917+03:00  INFO 4412 --- [http-nio-8080-exec-1] c.e.s.postgredb.aspect.MyLoggingAspect   : Exiting method: calculateAverageGradeForStudentInCourse of class: ExamTypeServiceImpl with return value: 69.0
+2023-09-19T18:16:50.919+03:00  INFO 4412 --- [http-nio-8080-exec-1] c.e.s.postgredb.aspect.MyLoggingAspect   : Exiting method: finishTerm of class: TakenCourseServiceImpl with return value: OS dersi ortalaması: 69.0
+FALL 2022 dönemini başarılı bir şekilde tamamladınız. Tebrikler!
+2023-09-19T18:19:38.184+03:00  INFO 4412 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-09-19T18:19:38.188+03:00  INFO 4412 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-09-19T18:19:38.193+03:00  INFO 4412 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
