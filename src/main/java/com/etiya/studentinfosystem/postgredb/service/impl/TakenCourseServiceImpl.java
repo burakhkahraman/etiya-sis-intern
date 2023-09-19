@@ -1,5 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.service.impl;
 
+import com.etiya.studentinfosystem.postgredb.aspect.TrackTime;
 import com.etiya.studentinfosystem.postgredb.dto.ResultOfExamDTO;
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
 import com.etiya.studentinfosystem.postgredb.model.*;
@@ -114,6 +115,7 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     }
 
     @Override
+    @TrackTime
     public String finishTerm(Long studentId) {
 
         //taken_courses tablosundan tüm kayıtların sadece grade_id olmayanları çekiyoruz
