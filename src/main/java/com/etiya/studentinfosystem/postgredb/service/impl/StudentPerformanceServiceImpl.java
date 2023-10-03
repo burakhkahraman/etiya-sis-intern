@@ -1,8 +1,6 @@
 package com.etiya.studentinfosystem.postgredb.service.impl;
-
 import com.etiya.studentinfosystem.postgredb.model.StudentPerformance;
 import com.etiya.studentinfosystem.postgredb.model.TakenCourse;
-import com.etiya.studentinfosystem.postgredb.repository.ResultOfExamRepository;
 import com.etiya.studentinfosystem.postgredb.repository.TakenCourseRepository;
 import com.etiya.studentinfosystem.postgredb.service.StudentPerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;

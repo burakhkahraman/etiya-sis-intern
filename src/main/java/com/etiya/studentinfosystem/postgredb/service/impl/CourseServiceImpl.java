@@ -71,7 +71,8 @@ public class CourseServiceImpl implements CourseService {
             graduationStatus.setMessage("Öğrenci mezun olabilir.");
         } else {
             graduationStatus.setEligibleForGraduation(false);
-            graduationStatus.setMessage("Mezun olabilmek için " + graduationStatus.getMandatoryCoursesRemaining() + " tane zorunlu ve " + graduationStatus.getElectiveCoursesRemaining() + " tane seçmeli dersiniz kalmıştır.");
+            graduationStatus.setMessage("Mezun olabilmek için " + graduationStatus.getMandatoryCoursesRemaining() +
+             " tane zorunlu ve " + graduationStatus.getElectiveCoursesRemaining() + " tane seçmeli dersiniz kalmıştır.");
         }
 
         return graduationStatus;
