@@ -1,5 +1,4 @@
 package com.etiya.studentinfosystem.postgredb.service.impl;
-
 import com.etiya.studentinfosystem.postgredb.aspect.TrackTime;
 import com.etiya.studentinfosystem.postgredb.dto.ResultOfExamDTO;
 import com.etiya.studentinfosystem.postgredb.dto.TakenCourseDTO;
@@ -18,28 +17,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 @Service
 public class TakenCourseServiceImpl implements TakenCourseService {
-
     @Autowired
     private TakenCourseRepository takenCourseRepository;
-
     @Autowired
     private CourseRepository courseRepository;
-
     @Autowired
     private StudentRepository studentRepository;
-
     @Autowired
     private ResultOfExamRepository resultOfExamRepository;
-
     @Autowired
     private ExamTypeServiceImpl examTypeService;
-
     @Autowired
     private GradeRepository gradeRepository;
-
     private final Mapper dozerMapper = DozerBeanMapperBuilder.create()
             .withMappingFiles("TakenCourseDozer.xml")
             .build();
@@ -117,13 +108,11 @@ public class TakenCourseServiceImpl implements TakenCourseService {
     @Override
     @TrackTime
     public String finishTerm(Long studentId) {
-
         //taken_courses tablosundan tüm kayıtların sadece grade_id olmayanları çekiyoruz
         //her bir tanesi için result_of_examdan bütün sınav sonuçlarını alıp her ders ozelinde ortalamasını bulup grade id bulucaksın
         //grade id güncelle
         //repo.save
         // Öğrenci için grade_id'si null olan dersleri al
-
         List<TakenCourse> coursesOfStudent = takenCourseRepository.findByStudentId(studentId);
         if (coursesOfStudent.isEmpty()) {
             return "Öğrenci için kaydedilmiş ders bulunamadı.";
@@ -139,16 +128,12 @@ public class TakenCourseServiceImpl implements TakenCourseService {
             weightedAverages.add(avg);
             totalWeightedSum += avg;
         }
-
         // Derslerin ağırlıklı ortalamalarını topla ve ders sayısına bölerek genel ortalama elde et
         Double totalAverage = totalWeightedSum / coursesOfStudent.size();
-
         // Ortalama değerlendirme
         boolean hasPassedTheTerm = totalAverage >= 50.0;
-
         // En son alınan dersi bul
         String lastTerm = coursesOfStudent.get(0).getTerm();
-
         StringBuilder resultBuilder = new StringBuilder();
         for (int i = 0; i < coursesOfStudent.size(); i++) {
             TakenCourse course = coursesOfStudent.get(i);
@@ -157,13 +142,11 @@ public class TakenCourseServiceImpl implements TakenCourseService {
                     .append(weightedAverages.get(i))
                     .append("\n");
         }
-
         if (!hasPassedTheTerm) {
             resultBuilder.append(lastTerm + " dönemini başarısız bir şekilde tamamladınız. Daha çok çalışmalısınız.");
         } else {
             resultBuilder.append(lastTerm + " dönemini başarılı bir şekilde tamamladınız. Tebrikler!");
         }
-
         return resultBuilder.toString();
     }
 

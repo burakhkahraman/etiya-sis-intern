@@ -2,7 +2,6 @@
 <mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
-
     <!-- TakenCourse to TakenCourseDTO Mapping -->
     <mapping>
         <class-a>com.etiya.studentinfosystem.postgredb.model.TakenCourse</class-a>
@@ -12,8 +11,6 @@
             <a>student.id</a>
             <b>studentId</b>
         </field>
-
-
         <field>
             <a>course.courseName</a> <!-- Assuming that the Course entity has a courseName field -->
             <b>courseName</b>
@@ -31,7 +28,6 @@
             <b>isActive</b>
         </field>
     </mapping>
-
     <!-- TakenCourse to TakenCourseRequest Mapping -->
     <mapping>
         <class-a>com.etiya.studentinfosystem.postgredb.model.TakenCourse</class-a>

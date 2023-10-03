@@ -1,5 +1,4 @@
 package com.etiya.studentinfosystem.postgredb.controller;
-
 import com.etiya.studentinfosystem.postgredb.dto.LoginDto;
 import com.etiya.studentinfosystem.postgredb.dto.RefreshDto;
 import com.etiya.studentinfosystem.postgredb.dto.RegisterDto;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 @RestController
 @RequestMapping("/auth")
 @Tag(name = "Authentication", description = "Yetkilendirme işlemleri için endpointler")
@@ -26,19 +24,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private AuthService authService;
     private ExtractJwtDetails extractJwtDetails;
-
     @Operation(summary = "Kullanıcı girişi sağlar", description = "Verilen bilgilerle kullanıcı girişi yapar ve JWT döner.")
     @PostMapping(path = {"/login", "/sign-in"})
     public ResponseEntity<JwtResponse> loginRequestHandler(@Valid @RequestBody LoginDto loginDto) {
         return ResponseEntity.ok(authService.loginService(loginDto));
     }
-
     @Operation(summary = "Kullanıcı kayıt işlemi", description = "Verilen bilgilerle yeni bir kullanıcı kaydı oluşturur.")
     @PostMapping("/sign-up")
     public ResponseEntity<APIResponse> registerRequestHandler(@Valid @RequestBody RegisterDto registerDto) throws Exception {
         return new ResponseEntity<APIResponse>(authService.registerService(registerDto), HttpStatus.CREATED);
     }
-
     @Operation(summary = "JWT yenileme işlemi", description = "Mevcut token ile yeni bir JWT almak için kullanılır.")
     @PostMapping("/refreshToken")
     public ResponseEntity<JwtResponse> refreshTokenRequestHandler(

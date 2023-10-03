@@ -84,7 +84,6 @@ public class ExamTypeServiceImpl implements ExamTypeService {
 
         return weightedSum;
     }
-
     private void adjustResultsForButunleme(List<ResultOfExam> results) {
         ResultOfExam butunleme = results.stream().filter(result -> result.getExamType().getParentExamTypeId() != null).findFirst().orElse(null);
 
@@ -92,7 +91,6 @@ public class ExamTypeServiceImpl implements ExamTypeService {
             results.removeIf(r -> r.getExamType().getId().equals(butunleme.getExamType().getParentExamTypeId()));
         }
     }
-
     private double getWeightForExamType(Long examGroupId, ExamType examType) {
         if (examGroupId == 1) {
             if (examType.getExamName().equals("VIZE")) {

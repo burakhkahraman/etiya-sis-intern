@@ -22,6 +22,7 @@ public class MyLoggingAspect {
     // Servislerin her metodunun sonunda çalışacak
     @AfterReturning(pointcut = "execution(* com.etiya.studentinfosystem.postgredb.service..*.*(..))", returning = "result")
     public void logAfter(JoinPoint joinPoint, Object result) {
-        log.info("Exiting method: " + joinPoint.getSignature().getName() + " of class: " + joinPoint.getTarget().getClass().getSimpleName() + " with return value: " + result);
+        log.info("Exiting method: " + joinPoint.getSignature().getName() + " of class: " +
+                joinPoint.getTarget().getClass().getSimpleName() + " with return value: " + result);
     }
 }

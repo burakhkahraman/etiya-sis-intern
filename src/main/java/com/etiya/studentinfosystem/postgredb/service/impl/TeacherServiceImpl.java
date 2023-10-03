@@ -1,5 +1,4 @@
 package com.etiya.studentinfosystem.postgredb.service.impl;
-
 import com.etiya.studentinfosystem.postgredb.dto.TeacherDTO;
 import com.etiya.studentinfosystem.postgredb.model.Teacher;
 import com.etiya.studentinfosystem.postgredb.repository.TeacherRepository;
@@ -11,15 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 @Service
 public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
-
     @Autowired
     private Mapper dozerMapper;
-
     @Override
     public TeacherDTO getTeacherById(Long id) {
         return convertToDTO(teacherRepository.findById(id).orElse(null));
@@ -31,14 +27,12 @@ public class TeacherServiceImpl implements TeacherService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
-
     @Override
     public TeacherDTO createTeacher(TeacherDTO teacherDTO) {
         Teacher teacher = convertToEntity(teacherDTO);
         Teacher savedTeacher = teacherRepository.save(teacher);
         return convertToDTO(savedTeacher);
     }
-
     @Override
     public TeacherDTO updateTeacher(Long id, TeacherDTO teacherDTO) {
         Teacher existingTeacher = teacherRepository.findById(id).orElse(null);
@@ -50,7 +44,6 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return null;
     }
-
     @Override
     public boolean deleteTeacher(Long id) {
         if (teacherRepository.existsById(id)) {
@@ -59,7 +52,6 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return false;
     }
-
     private TeacherDTO convertToDTO(Teacher teacher) {
         return dozerMapper.map(teacher, TeacherDTO.class);
     }
